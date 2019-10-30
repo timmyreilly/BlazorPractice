@@ -1,0 +1,36 @@
+@page "/device"
+
+<div>
+
+<h1>Counter</h1>
+
+<p>Current deviceId: @currentDeviceProperties</p>
+
+<button class="btn btn-primary" @onclick="IncrementApiKey">Click me</button>
+</div>
+
+<div>
+
+<input @bind-value="CurrentValue" @bind-value:event="oninput" />
+<p>This string will get value from above text field : @CurrentValue</p>
+
+</div>
+
+<div>
+<h1 style="font-style:@_headingFontStyle">@_headingText</h1>
+
+</div>
+
+@code {
+    private int currentDeviceProperties = 0;
+    private string _headingFontStyle = "italic";
+    private string _headingText = "Put on your new Blazor!";
+
+    string CurrentValue = "";
+
+
+    private void IncrementApiKey()
+    {
+        currentDeviceProperties++;
+    }
+}

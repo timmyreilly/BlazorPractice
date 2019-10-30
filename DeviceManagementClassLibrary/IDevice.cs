@@ -1,10 +1,13 @@
-using System; 
-
 namespace DeviceManagementClassLibrary
 {
-    public interface IDevice 
+    public interface IDevice
     {
 
-         IDeviceProperties GetProperties(); 
+        IDeviceProperties GetProperties();
+        IDeviceProperties GetDeviceProperties();
+    }
+
+    public class Device : IDevice {
+        
     }
 }
