@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+    <div class="panel-heading">@DeviceTitle</div>
+    <div class="panel-body">@ChildContent</div>
+
+    <button class="btn btn-primary" @onclick="OnClick">
+        Trigger a Parent component method
+    </button>
+
+    <input id="useAttributesDict"
+       @attributes="InputAttributes" />
+    <div extra="5" @attributes="AdditionalAttributes"  />
+
+</div>
+
+<div id="useAttributesDict" @attributes="DivInputAttributes" @onwheel="WheelScrolled">
+    <p @attributes="DivInputAttributes">ROLL HERE</p>
+</div>
+
+<div>
+    <p>Device on @OnState</p>
+</div>
+
+@code {
+    [Parameter]
+    public string DeviceTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public Dictionary<string, object> DivInputAttributes {get; set; } =
+        new Dictionary<string, object>()
+        {
+            {"letter-spacing", "1"}, 
+            {"style", "color: blue"}
+        }; 
+
+    private void WheelScrolled(WheelEventArgs e) 
+    {
+        DivInputAttributes["style"] = "color: red";
+        DivInputAttributes["letter-spacing"] = "100"; 
+    }
+
+    [Parameter]
+    public Dictionary<string, object> InputAttributes { get; set; } =
+        new Dictionary<string, object>()
+        {
+            { "maxlength", "10" },
+            { "placeholder", "Input placeholder text" },
+            { "required", "required" },
+            { "size", "10" }
+        };
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Parameter]
+    public bool OnState { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnStateChanged { get; set; }
+}

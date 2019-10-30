@@ -2,6 +2,8 @@
 
 <div>
 
+    <HeadingComponent /> 
+
 <h1>Counter</h1>
 
 <p>Current deviceId: @currentDeviceProperties</p>
@@ -17,20 +19,59 @@
 </div>
 
 <div>
-<h1 style="font-style:@_headingFontStyle">@_headingText</h1>
-
+    <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
 </div>
 
+<div>
+    <DevicePeek extra=10 DeviceTitle="Could be any Device Title" OnClick="@ShowMessage" @bind-OnState="ParentOnState">This will be rendered</DevicePeek>
+    <p><b>@messageText</b></p>
+    <button @onclick="ChangeTheOnState">Toggle On State</button>
+</div>
+
+<div>
+
+<h2>
+Data Binding
+</h2>
+<input @bind="MyInt" /> 
+<input @bind="MyDouble" /> 
+</div>
+
+<div>
+    <h2>Formatting</h2>
+    <input @bind="StartDate" /> 
+</div>
 @code {
     private int currentDeviceProperties = 0;
     private string _headingFontStyle = "italic";
     private string _headingText = "Put on your new Blazor!";
 
     string CurrentValue = "";
+    private string messageText;
 
+    [Parameter]
+    public DateTime StartDate {get; set;} = new DateTime(1992, 3, 2); 
+
+    [Parameter]
+    public int MyInt { get; set; } = 123; 
+
+    [Parameter]
+    public double MyDouble { get; set; } = 123.32; 
 
     private void IncrementApiKey()
     {
         currentDeviceProperties++;
+    }
+
+    private void ShowMessage(MouseEventArgs e)
+    {
+        messageText = "Blaze a new trail with Blazor!";
+    }
+
+    [Parameter]
+    public bool ParentOnState {get; set;} = false; 
+
+    private void ChangeTheOnState(){
+        ParentOnState = !ParentOnState; 
     }
 }
