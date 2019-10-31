@@ -1,10 +1,13 @@
-@page "/device"
+@page "/practice"
+@page "/practice/{deviceId}"
 
 <div>
 
     <HeadingComponent /> 
 
 <h1>Counter</h1>
+
+<div>Device id: @DeviceId</div>
 
 <p>Current deviceId: @currentDeviceProperties</p>
 
@@ -16,14 +19,14 @@
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
 <p>This string will get value from above text field : @CurrentValue</p>
 
-</div>
+</div> 
 
 <div>
     <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
 </div>
 
 <div>
-    <DevicePeek extra=10 DeviceTitle="Could be any Device Title" OnClick="@ShowMessage" @bind-OnState="ParentOnState">This will be rendered</DevicePeek>
+    <PracticePeek extra=10 DeviceTitle="Could be any Device Title" OnClick="@ShowMessage" @bind-OnState="ParentOnState">This will be rendered</PracticePeek>
     <p><b>@messageText</b></p>
     <button @onclick="ChangeTheOnState">Toggle On State</button>
 </div>
@@ -41,13 +44,46 @@ Data Binding
     <h2>Formatting</h2>
     <input @bind="StartDate" /> 
 </div>
+
+<div>
+    <h2>Some buttons</h2>
+    <h3>@message</h3>
+    @for (var i = 1; i < 4; i++) 
+    {
+        var buttonNumber = i; 
+
+        <button class="btn btn-primary" @onclick="@(e => UpdateHeading(e, buttonNumber))">
+            Button #@i
+            
+        </button>
+    }
+
+</div>
+
+<div>
+    <PasswordField @bind-Password="password" /> 
+</div>
+
+<div>
+    <EditExampleModelForm />
+</div>
+
 @code {
+    private string password; 
     private int currentDeviceProperties = 0;
     private string _headingFontStyle = "italic";
     private string _headingText = "Put on your new Blazor!";
 
     string CurrentValue = "";
     private string messageText;
+
+    [Parameter]
+    public string DeviceId { get; set; }
+
+    protected override void OnInitialized() 
+    {
+        DeviceId = DeviceId ?? "No Device Id provided"; 
+    }
 
     [Parameter]
     public DateTime StartDate {get; set;} = new DateTime(1992, 3, 2); 
@@ -73,5 +109,12 @@ Data Binding
 
     private void ChangeTheOnState(){
         ParentOnState = !ParentOnState; 
+    }
+
+    private string message = "Select a button to learn its position"; 
+
+    private void UpdateHeading(MouseEventArgs e, int buttonNumber) 
+    {
+        message = $"You selected Button #{buttonNumber}" + $"mouse position: {e.ClientX} X {e.ClientY}."; 
     }
 }

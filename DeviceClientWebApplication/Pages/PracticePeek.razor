@@ -40,7 +40,12 @@
 
     private void WheelScrolled(WheelEventArgs e) 
     {
-        DivInputAttributes["style"] = "color: red";
+        if(e.DeltaY >= 0)
+        {
+            DivInputAttributes["style"] = "color: red";
+        } else {
+            DivInputAttributes["style"] = "color: green";
+        }
         DivInputAttributes["letter-spacing"] = "100"; 
     }
 

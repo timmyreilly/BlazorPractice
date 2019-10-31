@@ -1,0 +1,23 @@
+@page "/singleDevice"
+@inject IDeviceTwinService DeviceTwinService 
+
+<input @bind:"DeviceId" />
+
+<button  @onclick="GetDeviceInfo"> Get Device Info </button> 
+
+<p>Device Properties: @Device</p> 
+
+@code {
+    [Parameter]
+    public string DeviceId {get; set;} = "123";
+
+    [Parameter]
+    public string Device {get; set;}
+
+    public void GetDeviceInfo() {
+        Device = DeviceTwinService.GetDeviceTwin(DeviceId); 
+    }
+
+
+    
+}
