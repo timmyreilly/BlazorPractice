@@ -16,6 +16,11 @@ namespace UnitTests
 
             Console.WriteLine(devices);
             Assert.NotNull(devices);
+            foreach(Twin d in devices) 
+            {
+                Assert.NotNull(d); 
+
+            }
         }
     }
 }

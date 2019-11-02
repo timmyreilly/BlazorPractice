@@ -11,7 +11,7 @@ namespace DeviceClientWebApplication.Services
 
         public DeviceTwinService()
         {
-            _registryManager = RegistryManager.CreateFromConnectionString("HostName=monster-hub-four.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=d+5Vz+4PmWHxhoXFZWw2v3c+H/BQUwpY7Nj2S7RwzdE=");
+            _registryManager = RegistryManager.CreateFromConnectionString("HostName=monster-hub-four.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=t+5Vz+4PmWHxhoXFZWw2v3c+H/BQUwpY7Nj2S7RwztE=");
         }
         public async Task<IEnumerable<Twin>> GetDevicesAsync()
         {

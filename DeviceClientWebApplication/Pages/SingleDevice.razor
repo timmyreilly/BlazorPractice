@@ -1,26 +1,17 @@
 @page "/singleDevice"
 @page "/singleDevice/{DeviceId}"
 @page "/singleDevice/int/{DeviceId:int}"
+@using Microsoft.Azure.Devices.Shared;
 @inject IDeviceTwinService DeviceTwinService 
 
-<input @bind-value="DeviceId" @bind-value:event="oninput" />
-<p>This string will get value from above text field : @DeviceId</p>
 
-<button  @onclick="GetDeviceInfo"> Get Device Info </button> 
-
-<p>Device Properties: @Device</p> 
+<p>Device Properties Desired: @DeviceTwin.Properties.Desired.ToString()</p> 
+<p>Device Properties Reported: @DeviceTwin.Properties.Reported.ToString()</p> 
 
 @code {
+
+
     [Parameter]
-    public string DeviceId {get; set;} = "123";
-
-    [Parameter]
-    public string Device {get; set;}
-
-    public void GetDeviceInfo() {
-        Device = DeviceTwinService.GetDeviceTwin(DeviceId); 
-    }
-
-
-    
+    public Twin DeviceTwin {get; set;}
+        
 }
